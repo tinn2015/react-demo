@@ -7,9 +7,10 @@
  * @FilePath: /react-demo/mobx/src/pages/home/index.js
  */
 import React, {Component} from 'react'
+import {observer} from 'mobx-react'
 import todoStore from '../../store/index'
 
-class Home extends Component{
+const observerHome = observer(class Home extends Component{
     constructor (props) {
         super(props)
 				this.state = {
@@ -22,15 +23,16 @@ class Home extends Component{
         todoStore.addTodo({
           label: '任务一' + Math.random()
         })
-			this.setState({
-				todoList: todoStore.todos
-			})
+			// this.setState({
+			// 	todoList: todoStore.todos
+			// })
     }
     render () {
-        let todoList = this.state.todoList
-				console.log(todoList, 'todolist')
+        let todoList = todoStore.todos
+        console.log('todoList', todoList)
         return (
             <div className="home">
+                <div>{todoList.length}</div>
                  <div onClick={() => {this.add()}}>addTodo</div>
                     {
                         todoList.map(i => {
@@ -40,5 +42,5 @@ class Home extends Component{
             </div>
         )
     }
-}
-export default Home
+})
+export default observerHome
