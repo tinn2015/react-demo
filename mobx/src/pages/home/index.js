@@ -10,7 +10,8 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import todoStore from '../../store/index'
 
-const observerHome = observer(class Home extends Component{
+@observer
+class Home extends Component{
     constructor (props) {
         super(props)
 				this.state = {
@@ -23,13 +24,10 @@ const observerHome = observer(class Home extends Component{
         todoStore.addTodo({
           label: '任务一' + Math.random()
         })
-			// this.setState({
-			// 	todoList: todoStore.todos
-			// })
     }
     render () {
         let todoList = todoStore.todos
-        console.log('todoList', todoList)
+				console.log(todoStore, 'todolist')
         return (
             <div className="home">
                 <div>{todoList.length}</div>
@@ -42,5 +40,5 @@ const observerHome = observer(class Home extends Component{
             </div>
         )
     }
-})
-export default observerHome
+}
+export default Home

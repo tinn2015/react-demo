@@ -8,6 +8,7 @@ import {makeObservable, observable, computed, action, autorun} from 'mobx'
 class ObservableTodoStore {
   todos = [];
   pendingRequests = 0;
+  isLogin = false
 
   constructor() {
     makeObservable(this, {
@@ -16,6 +17,8 @@ class ObservableTodoStore {
       completedTodosCount: computed,
       report: computed,
       addTodo: action,
+      isLogin: observable,
+      changeLogin: action
     });
     autorun(() => console.log(this.report));
   }
@@ -40,6 +43,10 @@ class ObservableTodoStore {
       completed: false,
       assignee: null
     });
+  }
+
+  changeLogin (flag) {
+    this.isLogin = flag
   }
 }
 
